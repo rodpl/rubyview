@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{56A106DB-E522-45FA-B98B-A52D0CA82072}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F5343B35-3466-49CA-BD0E-B2918C6BCA67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castle.MonoRail.Views.RubyView", "src\app\Castle.MonoRail.Views.RubyView\Castle.MonoRail.Views.RubyView.csproj", "{9F1CC255-285A-43BB-A3B0-D4C6CFC054BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AE0CDDA-5AA8-4826-94EE-2A3F09600326}"
+	ProjectSection(SolutionItems) = preProject
+		Common.Targets = Common.Targets
+		Common.User.Targets = Common.User.Targets
+		Default.proj = Default.proj
+		IterationNumber.txt = IterationNumber.txt
+		Settings.proj = Settings.proj
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castle.MonoRail.Views.RubyView.IntegrationTests", "src\test\Castle.MonoRail.Views.RubyView.IntegrationTests\Castle.MonoRail.Views.RubyView.IntegrationTests.csproj", "{CFEF9E5F-7152-4B05-A8E2-068C6A867977}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castle.MonoRail.Views.RubyView.UnitTests", "src\test\Castle.MonoRail.Views.RubyView.UnitTests\Castle.MonoRail.Views.RubyView.UnitTests.csproj", "{C3A5A094-93E4-496D-B49E-4065293FBAF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F1CC255-285A-43BB-A3B0-D4C6CFC054BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F1CC255-285A-43BB-A3B0-D4C6CFC054BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F1CC255-285A-43BB-A3B0-D4C6CFC054BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F1CC255-285A-43BB-A3B0-D4C6CFC054BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFEF9E5F-7152-4B05-A8E2-068C6A867977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEF9E5F-7152-4B05-A8E2-068C6A867977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFEF9E5F-7152-4B05-A8E2-068C6A867977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEF9E5F-7152-4B05-A8E2-068C6A867977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3A5A094-93E4-496D-B49E-4065293FBAF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3A5A094-93E4-496D-B49E-4065293FBAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3A5A094-93E4-496D-B49E-4065293FBAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3A5A094-93E4-496D-B49E-4065293FBAF7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9F1CC255-285A-43BB-A3B0-D4C6CFC054BC} = {56A106DB-E522-45FA-B98B-A52D0CA82072}
+		{CFEF9E5F-7152-4B05-A8E2-068C6A867977} = {F5343B35-3466-49CA-BD0E-B2918C6BCA67}
+		{C3A5A094-93E4-496D-B49E-4065293FBAF7} = {F5343B35-3466-49CA-BD0E-B2918C6BCA67}
+	EndGlobalSection
+EndGlobal
