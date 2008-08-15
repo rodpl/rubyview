@@ -37,7 +37,7 @@
 
 	<!-- Signing Properties-->
 	<PropertyGroup>
-		<SignAssembly>true</SignAssembly>
+		<SignAssembly Condition="$(SignAssembly) == ''">true</SignAssembly>
 		<AssemblyOriginatorKeyFile>$(RootPath)\$(ProjectName).snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 	

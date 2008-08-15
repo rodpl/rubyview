@@ -20,6 +20,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castle.MonoRail.Views.RubyV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castle.MonoRail.Views.RubyView.UnitTests", "src\test\Castle.MonoRail.Views.RubyView.UnitTests\Castle.MonoRail.Views.RubyView.UnitTests.csproj", "{C3A5A094-93E4-496D-B49E-4065293FBAF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSiteRubyView", "src\app\TestSiteRubyView\TestSiteRubyView.csproj", "{2BC1E967-AB96-47C7-BCDA-7EC14E6E8B7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castle.MonoRail.Views.RubyView.AcceptanceTests", "src\test\Castle.MonoRail.Views.RubyView.AcceptanceTests\Castle.MonoRail.Views.RubyView.AcceptanceTests.csproj", "{59CCAD53-2CAE-40D2-8E4A-15377FC0B7E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,13 +42,23 @@ Global
 		{C3A5A094-93E4-496D-B49E-4065293FBAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3A5A094-93E4-496D-B49E-4065293FBAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3A5A094-93E4-496D-B49E-4065293FBAF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BC1E967-AB96-47C7-BCDA-7EC14E6E8B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BC1E967-AB96-47C7-BCDA-7EC14E6E8B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BC1E967-AB96-47C7-BCDA-7EC14E6E8B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BC1E967-AB96-47C7-BCDA-7EC14E6E8B7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59CCAD53-2CAE-40D2-8E4A-15377FC0B7E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59CCAD53-2CAE-40D2-8E4A-15377FC0B7E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59CCAD53-2CAE-40D2-8E4A-15377FC0B7E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59CCAD53-2CAE-40D2-8E4A-15377FC0B7E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9F1CC255-285A-43BB-A3B0-D4C6CFC054BC} = {56A106DB-E522-45FA-B98B-A52D0CA82072}
+		{2BC1E967-AB96-47C7-BCDA-7EC14E6E8B7C} = {56A106DB-E522-45FA-B98B-A52D0CA82072}
 		{CFEF9E5F-7152-4B05-A8E2-068C6A867977} = {F5343B35-3466-49CA-BD0E-B2918C6BCA67}
 		{C3A5A094-93E4-496D-B49E-4065293FBAF7} = {F5343B35-3466-49CA-BD0E-B2918C6BCA67}
+		{59CCAD53-2CAE-40D2-8E4A-15377FC0B7E7} = {F5343B35-3466-49CA-BD0E-B2918C6BCA67}
 	EndGlobalSection
 EndGlobal
