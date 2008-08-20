@@ -6,17 +6,16 @@ namespace Castle.MonoRail.Views.RubyView.AcceptanceTests
 	{
 		protected ISelenium Selenium { get; private set; }
 
-		public override void SetUp()
+		public override void TestFixtureSetUp()
 		{
-			base.SetUp();
+			base.TestFixtureSetUp();
 			Selenium = new DefaultSelenium("localhost", 4444, "*iehta", "http://localhost:2091");
 			Selenium.Start();
-			Selenium.SetSpeed("1");
 		}
 
-		public override void TearDown()
+		public override void TestFixtureTearDown()
 		{
-			base.SetUp();
+			base.TestFixtureTearDown();
 			Selenium.Stop();
 		}
 	}

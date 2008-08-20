@@ -24,9 +24,9 @@ namespace Castle.MonoRail.Views.RubyView
 			requires.Add(require);
 		}
 
-		public string ToScript()
+		public string ToScriptMethod()
 		{
-			return ToScript(null);
+			return ToScriptMethod(null);
 		}
 
 		/// <summary>
@@ -34,14 +34,14 @@ namespace Castle.MonoRail.Views.RubyView
 		/// </summary>
 		/// <param name="methodName"></param>
 		/// <returns></returns>
-		public string ToScript(string methodName)
+		public string ToScriptMethod(string methodName)
 		{
 			StringBuilder builder = new StringBuilder();
-			ToScript(methodName, builder);
+			ToScriptMethod(methodName, builder);
 			return builder.ToString().Trim();
 		}
 
-		public void ToScript(string methodName, StringBuilder builder)
+		public void ToScriptMethod(string methodName, StringBuilder builder)
 		{
 			string contents = template;
 			builder.AppendLine();
