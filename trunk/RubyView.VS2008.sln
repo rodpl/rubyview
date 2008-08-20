@@ -12,9 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Common.Targets = Common.Targets
 		Common.User.Targets = Common.User.Targets
 		Default.proj = Default.proj
-		IterationNumber.txt = IterationNumber.txt
 		tools\msbuild\rod.Commons\rod.Commons.Targets = tools\msbuild\rod.Commons\rod.Commons.Targets
 		Settings.proj = Settings.proj
+		StartTestSite.js = StartTestSite.js
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castle.MonoRail.Views.RubyView.IntegrationTests", "src\test\Castle.MonoRail.Views.RubyView.IntegrationTests\Castle.MonoRail.Views.RubyView.IntegrationTests.csproj", "{CFEF9E5F-7152-4B05-A8E2-068C6A867977}"

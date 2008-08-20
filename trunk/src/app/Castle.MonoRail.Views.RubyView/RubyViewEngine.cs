@@ -63,31 +63,32 @@ namespace Castle.MonoRail.Views.RubyView
 			if(viewSource == null)
 				throw new MonoRailException(404, "No such view", string.Format("Missing or invalid view: {0}", viewFileName));
 			var layoutNames = controllerContext.LayoutNames;
-			
-
 
 			var scriptRuntime = IronRuby.CreateRuntime();
 			var scriptScope = scriptRuntime.CreateScope();
 			var scriptEngine = IronRuby.GetEngine(scriptRuntime);
 
-			var view = new RubyView(viewFileName,new StreamReader(viewSource.OpenViewStream()), output);
-			if(layoutNames != null)
+			using (var reader = new StreamReader(viewSource.OpenViewStream()))
 			{
-				var last = view;
-				
-				for (int i = layoutNames.Length -1; i >= 0; i--)
+				var view = new RubyView(viewFileName, reader, output);
+				if (layoutNames != null)
 				{
-					Debug.Write(i);
-					IViewSource layoutSource;
-					var layoutFileName = string.Concat("Layouts\\", layoutNames[i].Trim(), ViewFileExtension);
-					layoutSource = ViewSourceLoader.GetViewSource(layoutFileName);
-					if (layoutSource == null)
-						throw new MonoRailException(string.Format("Layout '{0}' cannot be found or loaded.", layoutNames[i].Trim()));
-					last.Parent = new RubyView(layoutFileName, new StreamReader(layoutSource.OpenViewStream()), output);
-					last = last.Parent;
+					var last = view;
+
+					for (int i = layoutNames.Length - 1; i >= 0; i--)
+					{
+						Debug.Write(i);
+						IViewSource layoutSource;
+						var layoutFileName = string.Concat("Layouts\\", layoutNames[i].Trim(), ViewFileExtension);
+						layoutSource = ViewSourceLoader.GetViewSource(layoutFileName);
+						if (layoutSource == null)
+							throw new MonoRailException(string.Format("Layout '{0}' cannot be found or loaded.", layoutNames[i].Trim()));
+						last.Parent = new RubyView(layoutFileName, new StreamReader(layoutSource.OpenViewStream()), output);
+						last = last.Parent;
+					}
 				}
+				view.Render();
 			}
-			view.Render();
 		}
 
 		/// <summary>

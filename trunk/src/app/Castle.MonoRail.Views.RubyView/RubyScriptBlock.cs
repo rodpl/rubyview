@@ -64,8 +64,8 @@ namespace Castle.MonoRail.Views.RubyView
 				return;
 			}
 
-			if (ignoreNewLine)
-				block = block.Trim();
+			if (ignoreNewLine && block.StartsWith(Environment.NewLine))
+				block = block.Remove(0, Environment.NewLine.Length);
 
 			block = block.Replace(@"\", @"\\");
 			block = block.Replace(Environment.NewLine, "\\r\\n");

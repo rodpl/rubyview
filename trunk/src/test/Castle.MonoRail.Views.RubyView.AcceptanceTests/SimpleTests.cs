@@ -10,6 +10,8 @@ namespace Castle.MonoRail.Views.RubyView.AcceptanceTests
 		[TestCase("putsString", "Something to put: ")]
 		[TestCase("outputstring", "RubyView reversed is weiVybuR")]
 		[TestCase("outputexpression", "2 + 2 is 4")]
+		[TestCase("internalmethod", "2 + 2 is 4")]
+		[TestCase("changingvariable", "my_variable is Hi and now my_variable is Bye")]
 		public void Simple_Test(string viewName, string expected)
 		{
 			Selenium.Open(string.Format("simple/{0}.aspx", viewName));
