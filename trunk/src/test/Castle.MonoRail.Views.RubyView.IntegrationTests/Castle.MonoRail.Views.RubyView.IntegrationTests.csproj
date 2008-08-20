@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="NUnitTestFixture.cs" />
     <Compile Include="ViewTests\BasicFunctionalityTests.cs" />
+    <Compile Include="ViewTests\LayoutTests.cs" />
     <Compile Include="ViewTests\SimpleTests.cs" />
     <Compile Include="ViewTests\ViewTestFixture.cs" />
   </ItemGroup>
@@ -108,6 +109,14 @@
       <Link>ViewTests\Views\simple\existingview.erb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="..\..\app\TestSiteRubyView\Views\layouts\primary.erb">
+      <Link>ViewTests\Views\layouts\primary.erb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\app\TestSiteRubyView\Views\layouts\secondary.erb">
+      <Link>ViewTests\Views\layouts\secondary.erb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="..\..\app\TestSiteRubyView\Views\simple\outputexpression.erb">
       <Link>ViewTests\Views\simple\outputexpression.erb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -23,12 +23,12 @@ namespace Castle.MonoRail.Views.RubyView.IntegrationTests.ViewTests
 			Assert.That(ProcessViewInEngine(@"simple\" + viewName), Is.EqualTo(expected));
 		}
 
-//		[Test]
-//		public void TestForTest()
-//		{
-//			var viewName = "outputexpression";
-//			var expected = "2 + 2 is 4";
-//			Assert.That(ProcessViewInEngine(@"simple\" + viewName), Is.EqualTo(expected));
-//		}
+		[Test]
+		public void TestForTest()
+		{
+			var viewName = "outputexpression";
+			var expected = "2 + 2 is 4";
+			Assert.That(ProcessViewInEngine(@"simple\" + viewName), Is.EqualTo(expected));
+		}
 	}
 }

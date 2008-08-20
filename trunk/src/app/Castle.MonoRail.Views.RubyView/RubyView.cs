@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Runtime.Remoting;
 using System.Text;
@@ -12,12 +15,33 @@ namespace Castle.MonoRail.Views.RubyView
 	public class RubyView
 	{
 		private TextWriter _output;
+		private readonly string _fileName;
 		private TextReader _input;
 
-		public RubyView(TextReader input, TextWriter output)
+		public RubyView(string fileName, TextReader input, TextWriter output)
 		{
+			_fileName = fileName;
 			_input = input;
 			_output = output;
+		}
+
+		public string FileName
+		{
+			get { return _fileName; }
+		}
+
+		public RubyView Parent { get; set; }
+
+		private RubyTemplate _template;
+		public RubyTemplate Template
+		{
+			get
+			{
+				if (_template == null)
+					_template = new RubyTemplate(_input);
+				return _template;
+			}
+			set { _template = value; }
 		}
 
 		public void Render()
@@ -29,27 +53,22 @@ namespace Castle.MonoRail.Views.RubyView
 			ScriptScope scope = runtime.CreateScope();
 			scope.SetVariable("output_buffer", _output);
 
-			var template = new RubyTemplate(_input);
-			template.AddRequire("mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
-			template.AddRequire("System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
-			template.AddRequire("System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
+			Template = new RubyTemplate(_input);
+			Template.AddRequire("System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
 
 			StringBuilder script = new StringBuilder();
-			template.ToScript("render_page", script);
-//			if (master != null)
-//			{
-//				master.Template.ToScript("render_layout", script);
-//			}
-//			else
-//			{
-				script.AppendLine(@"def render_layout
-    yield
-end");
-//			}
-//			script.AppendLine(@"def view_data.method_missing(methodname)
-//    get_Item(methodname.to_s)
-//end");
-			script.AppendLine("render_layout { |content| render_page }");
+			var methodNames = new Stack<string>();
+			BuildScript(script, methodNames);
+			var methodsCounter = methodNames.Count;
+			while (methodNames.Count > 0)
+			{
+				script.Append(methodNames.Pop());
+				if(methodNames.Count > 0)
+					script.Append(" { ");
+			}
+			if (methodsCounter > 1)
+				script.Append(new String('}', methodsCounter - 1));
+
 			try
 			{
 				System.Diagnostics.Debug.WriteLine(script.ToString());
@@ -62,19 +81,22 @@ end");
 			}
 		}
 
-		public class Fake
+		public void BuildScript(StringBuilder script, Stack<string> methodNames)
 		{
-			private readonly TextWriter _writer;
+			var methodName = FileNameToMethodName("render_", FileName);
+			// Skipping genertating the same method
+			if(!methodNames.Contains(methodName)) 
+				Template.ToScriptMethod(methodName, script);
+			methodNames.Push(methodName);
 
-			public Fake(TextWriter writer)
-			{
-				_writer = writer;
-			}
+			if (Parent != null)
+				Parent.BuildScript(script, methodNames);
+		}
 
-			public void Write(object target)
-			{
-				_writer.Write(target);
-			}
+		private static string FileNameToMethodName(string prefix, string fileName)
+		{
+			// TODO: Optimize this
+			return string.Concat(prefix,fileName.ToLower().Replace("\\","_").Replace(".","_"));
 		}
 	}
 }

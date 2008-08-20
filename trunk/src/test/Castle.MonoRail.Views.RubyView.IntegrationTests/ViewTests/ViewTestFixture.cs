@@ -9,10 +9,10 @@ namespace Castle.MonoRail.Views.RubyView.IntegrationTests.ViewTests
 {
 	public class ViewTestFixture : NUnitTestFixture
 	{
-		private IEngineContext _engineContext;
-		private IController _controller;
-		private IControllerContext _controllerContext;
-		private RubyViewEngine _engine;
+		protected IEngineContext _engineContext;
+		protected IController _controller;
+		protected IControllerContext _controllerContext;
+		protected RubyViewEngine _engine;
 
 		
 		public override void SetUp()

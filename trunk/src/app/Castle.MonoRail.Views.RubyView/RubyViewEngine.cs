@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Security;
 using System.Text;
@@ -53,19 +54,39 @@ namespace Castle.MonoRail.Views.RubyView
 		/// <param name="context"></param>
 		/// <param name="controller"></param>
 		/// <param name="controllerContext"></param>
+		/// <exception cref="MonoRailException"><c>MonoRailException</c>.</exception>
 		public override void Process(string templateName, TextWriter output, IEngineContext context, IController controller, IControllerContext controllerContext)
 		{
-			var fileName = string.Concat(templateName, ViewFileExtension);
+			var viewFileName = string.Concat(templateName, ViewFileExtension);
 
-			var viewSource = ViewSourceLoader.GetViewSource(fileName);
+			var viewSource = ViewSourceLoader.GetViewSource(viewFileName);
 			if(viewSource == null)
-				throw new MonoRailException(404, "No such view", string.Format("Missing or invalid view: {0}", fileName));
+				throw new MonoRailException(404, "No such view", string.Format("Missing or invalid view: {0}", viewFileName));
+			var layoutNames = controllerContext.LayoutNames;
+			
+
 
 			var scriptRuntime = IronRuby.CreateRuntime();
 			var scriptScope = scriptRuntime.CreateScope();
 			var scriptEngine = IronRuby.GetEngine(scriptRuntime);
 
-			var view = new RubyView(new StreamReader(viewSource.OpenViewStream()), output);
+			var view = new RubyView(viewFileName,new StreamReader(viewSource.OpenViewStream()), output);
+			if(layoutNames != null)
+			{
+				var last = view;
+				
+				for (int i = layoutNames.Length -1; i >= 0; i--)
+				{
+					Debug.Write(i);
+					IViewSource layoutSource;
+					var layoutFileName = string.Concat("Layouts\\", layoutNames[i].Trim(), ViewFileExtension);
+					layoutSource = ViewSourceLoader.GetViewSource(layoutFileName);
+					if (layoutSource == null)
+						throw new MonoRailException(string.Format("Layout '{0}' cannot be found or loaded.", layoutNames[i].Trim()));
+					last.Parent = new RubyView(layoutFileName, new StreamReader(layoutSource.OpenViewStream()), output);
+					last = last.Parent;
+				}
+			}
 			view.Render();
 		}
 
