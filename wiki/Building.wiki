@@ -1,4 +1,5 @@
 #summary How to build project
+#labels Phase-Implementation
 
 === Requirements ===
 NET 3.5 is only needed to build and test project. You don't need Visual Studio. Project is self-sufficient for build and test process. Only PATH to MSBuild.exe from NET 3.5 is needed.
