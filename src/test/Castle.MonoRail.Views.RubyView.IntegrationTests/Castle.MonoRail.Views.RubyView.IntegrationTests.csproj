@@ -117,6 +117,14 @@
       <Link>ViewTests\Views\layouts\secondary.erb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="..\..\app\TestSiteRubyView\Views\simple\changingvariable.erb">
+      <Link>ViewTests\Views\simple\changingvariable.erb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\app\TestSiteRubyView\Views\simple\internalmethod.erb">
+      <Link>ViewTests\Views\simple\internalmethod.erb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="..\..\app\TestSiteRubyView\Views\simple\outputexpression.erb">
       <Link>ViewTests\Views\simple\outputexpression.erb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -127,6 +135,10 @@
     </None>
     <None Include="..\..\app\TestSiteRubyView\Views\simple\putsstring.erb">
       <Link>ViewTests\Views\simple\putsstring.erb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\app\TestSiteRubyView\Views\simple\trailingsign.erb">
+      <Link>ViewTests\Views\simple\trailingsign.erb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ViewTests\Views\home\index.erb">

@@ -95,6 +95,9 @@
     <None Include="Views\home\index.erb" />
     <None Include="Views\layouts\secondary.erb" />
     <None Include="Views\layouts\primary.erb" />
+    <None Include="Views\simple\changingvariable.erb" />
+    <None Include="Views\simple\trailingsign.erb" />
+    <None Include="Views\simple\internalmethod.erb" />
     <None Include="Views\simple\outputexpression.erb" />
     <None Include="Views\simple\outputstring.erb" />
     <None Include="Views\simple\putsstring.erb" />
