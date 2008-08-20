@@ -1,0 +1,9 @@
+#summary How to use simple layouts and nested layouts.
+
+Any view can be embedded into the layout. Layouts are defined in Controller by LayoutAttribute or by setting LayoutNames property. You can use multiply layouts:
+
+{{{
+[Layout("First", "Second")]
+public class MyController :Controller
+...
+}}}
