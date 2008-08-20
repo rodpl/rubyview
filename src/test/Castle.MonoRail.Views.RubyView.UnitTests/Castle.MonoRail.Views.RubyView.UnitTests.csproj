@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NUnitTestFixture.cs" />
+    <Compile Include="RubyScriptBlockTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\app\Castle.MonoRail.Views.RubyView\Castle.MonoRail.Views.RubyView.csproj">
