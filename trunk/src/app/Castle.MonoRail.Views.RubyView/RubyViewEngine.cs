@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security;
+using System.Text;
 using Castle.MonoRail.Framework;
+using Microsoft.Scripting.Hosting;
 using Ruby;
-
+[assembly: AllowPartiallyTrustedCallers()]
 namespace Castle.MonoRail.Views.RubyView
 {
 	public class RubyViewEngine : ViewEngineBase
@@ -53,11 +56,17 @@ namespace Castle.MonoRail.Views.RubyView
 		public override void Process(string templateName, TextWriter output, IEngineContext context, IController controller, IControllerContext controllerContext)
 		{
 			var fileName = string.Concat(templateName, ViewFileExtension);
+
 			var viewSource = ViewSourceLoader.GetViewSource(fileName);
-			using (var stream = new StreamReader(viewSource.OpenViewStream()))
-			{
-				output.Write(stream.ReadToEnd());
-			}
+			if(viewSource == null)
+				throw new MonoRailException(404, "No such view", string.Format("Missing or invalid view: {0}", fileName));
+
+			var scriptRuntime = IronRuby.CreateRuntime();
+			var scriptScope = scriptRuntime.CreateScope();
+			var scriptEngine = IronRuby.GetEngine(scriptRuntime);
+
+			var view = new RubyView(new StreamReader(viewSource.OpenViewStream()), output);
+			view.Render();
 		}
 
 		/// <summary>

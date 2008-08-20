@@ -1,0 +1,1 @@
+start java -jar tools\selenium-rc\selenium-server\selenium-server.jar

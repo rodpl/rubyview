@@ -1,10 +1,7 @@
-using Castle.MonoRail.Framework;
-
 namespace TestSiteRubyView.Controllers
 {
-	public class SimpleController : Controller
+	public class SimpleController : BaseController
 	{
-
 		public void ExistingView()
 		{
 		}

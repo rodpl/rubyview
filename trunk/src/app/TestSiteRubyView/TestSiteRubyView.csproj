@@ -92,6 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\home\index.erb" />
+    <None Include="Views\simple\outputexpression.erb" />
+    <None Include="Views\simple\outputstring.erb" />
+    <None Include="Views\simple\putsstring.erb" />
     <None Include="Views\simple\existingview.erb" />
   </ItemGroup>
   <ItemGroup>

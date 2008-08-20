@@ -1,31 +1,20 @@
-using System.Threading;
 using NUnit.Framework;
 using NUnit.Framework.Syntax.CSharp;
-using Selenium;
 
 namespace Castle.MonoRail.Views.RubyView.AcceptanceTests
 {
 	[TestFixture]
 	public class SimpleTests : SeleniumTestFixture
 	{
-		[SetUp]
-		public override void SetUp()
+		[TestCase("existingview", "Existing View")]
+		[TestCase("putsString", "Something to put: ")]
+		[TestCase("outputstring", "RubyView reversed is weiVybuR")]
+		[TestCase("outputexpression", "2 + 2 is 4")]
+		public void Simple_Test(string viewName, string expected)
 		{
-			base.SetUp();
-		}
-
-		[TearDown]
-		public override void TearDown()
-		{
-			base.TearDown();
-		}
-
-		[Test]
-		public void ExistingView_Test()
-		{
-			Selenium.Open("simple/existingview.aspx");
+			Selenium.Open(string.Format("simple/{0}.aspx", viewName));
 			Selenium.WaitForPageToLoad("3000");
-			Assert.That(Selenium.GetBodyText(), Is.EqualTo("Existing View"));
+			Assert.That(Selenium.GetBodyText(), Is.EqualTo(expected.Trim()));
 		}
 	}
 }
