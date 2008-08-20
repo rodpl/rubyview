@@ -1,6 +1,9 @@
-#summary Hot to build project
+#summary How to build project
+
+=== Requirements ===
 NET 3.5 is only needed to build and test project. You don't need Visual Studio. Project is self-sufficient for build and test process. Only PATH to MSBuild.exe from NET 3.5 is needed.
 
+=== Build commands ===
 To build:
   # `msbuild Default.proj /t:BuildAll`
 
