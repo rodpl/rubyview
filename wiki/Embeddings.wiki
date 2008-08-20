@@ -1,4 +1,5 @@
 #summary How to use code blocks
+#labels Featured
 You can use the same embeddings as in RoR, such as `<% %>`, `<% -%>` and `<%= %>`. 
 
 `<% %>` is for code block.
