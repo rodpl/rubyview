@@ -1,4 +1,4 @@
-==Configuration==
+=== Installing ===
 To use RubyViewEngine you don't need to have Ruby installed. Copy these libraries into your bin folder in MonoRail web site:
   * Castle.MonoRail.Views.RubyView.dll
   * IronRuby.dll
@@ -6,6 +6,7 @@ To use RubyViewEngine you don't need to have Ruby installed. Copy these librarie
   * Microsoft.Scripting.dll
   * Microsoft.Scripting.Core.dll
 
+=== Configuring in web.config ===
 Add engine definition in web.config in monorail section
 {{{
 <viewEngines>
@@ -17,5 +18,3 @@ File extension for views is .erb. Its a good idea to add such handler in config.
 {{{
 <add verb="*" path="*.erb" type="System.Web.HttpForbiddenHandler"/>
 }}}
-
-
