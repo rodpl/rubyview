@@ -1,3 +1,5 @@
+#summary How to install and configure
+#labels Phase-Deploy
 === Installing ===
 To use RubyViewEngine you don't need to have Ruby installed. Copy these libraries into your bin folder in MonoRail web site:
   * Castle.MonoRail.Views.RubyView.dll
