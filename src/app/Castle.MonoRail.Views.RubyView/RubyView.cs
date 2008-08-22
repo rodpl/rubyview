@@ -1,29 +1,40 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
-using System.Runtime.Remoting;
 using System.Text;
 using Castle.MonoRail.Framework;
+using Microsoft.Scripting.Hosting;
 using Ruby;
 using Ruby.Runtime;
-using Microsoft.Scripting.Hosting;
 
 namespace Castle.MonoRail.Views.RubyView
 {
 	public class RubyView
 	{
-		private TextWriter _output;
 		private readonly string _fileName;
+		private readonly TextWriter _output;
 		private TextReader _input;
+		private RubyTemplate _template;
 
-		public RubyView(string fileName, TextReader input, TextWriter output)
+		#region constructors ...
+
+		public RubyView(string fileName, TextWriter output, IViewSource viewSource)
 		{
+			ViewSource = viewSource;
 			_fileName = fileName;
-			_input = input;
 			_output = output;
+			_input = new StreamReader(ViewSource.OpenViewStream());
 		}
+
+		~RubyView()
+		{
+			Debug.WriteLine(String.Format("{0} : ~RubyView- {1}", GetType(), "START"));
+		}
+
+		#endregion
+
+		public IViewSource ViewSource { get; set; }
 
 		public string FileName
 		{
@@ -32,7 +43,6 @@ namespace Castle.MonoRail.Views.RubyView
 
 		public RubyView Parent { get; set; }
 
-		private RubyTemplate _template;
 		public RubyTemplate Template
 		{
 			get
@@ -63,7 +73,7 @@ namespace Castle.MonoRail.Views.RubyView
 			while (methodNames.Count > 0)
 			{
 				script.Append(methodNames.Pop());
-				if(methodNames.Count > 0)
+				if (methodNames.Count > 0)
 					script.Append(" { ");
 			}
 			if (methodsCounter > 1)
@@ -71,7 +81,7 @@ namespace Castle.MonoRail.Views.RubyView
 
 			try
 			{
-				System.Diagnostics.Debug.WriteLine(script.ToString());
+				Debug.WriteLine(script.ToString());
 				ScriptSource source = rubyengine.CreateScriptSourceFromString(script.ToString());
 				source.Execute(scope);
 			}
@@ -81,11 +91,11 @@ namespace Castle.MonoRail.Views.RubyView
 			}
 		}
 
-		public void BuildScript(StringBuilder script, Stack<string> methodNames)
+		protected void BuildScript(StringBuilder script, Stack<string> methodNames)
 		{
 			var methodName = FileNameToMethodName("render_", FileName);
 			// Skipping genertating the same method
-			if(!methodNames.Contains(methodName)) 
+			if (!methodNames.Contains(methodName))
 				Template.ToScriptMethod(methodName, script);
 			methodNames.Push(methodName);
 
@@ -96,7 +106,7 @@ namespace Castle.MonoRail.Views.RubyView
 		private static string FileNameToMethodName(string prefix, string fileName)
 		{
 			// TODO: Optimize this
-			return string.Concat(prefix,fileName.ToLower().Replace("\\","_").Replace(".","_"));
+			return string.Concat(prefix, fileName.ToLower().Replace("\\", "_").Replace(".", "_"));
 		}
 	}
 }
