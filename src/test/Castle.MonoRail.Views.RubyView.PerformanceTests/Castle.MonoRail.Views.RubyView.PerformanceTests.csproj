@@ -7,7 +7,7 @@
     <AssemblyGuid>b7a600e8-a3fa-42a0-8724-a152c7161a5d</AssemblyGuid>
   </PropertyGroup>
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -37,6 +37,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="anrControls.Markdown.NET, Version=1.0.1.0, Culture=neutral, PublicKeyToken=0b3305902db7183f">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle.Dependencies\anrControls.Markdown.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang, Version=2.0.0.0, Culture=neutral, PublicKeyToken=32c39770e9a21a67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle.Dependencies\Boo.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.CodeDom, Version=2.0.0.0, Culture=neutral, PublicKeyToken=32c39770e9a21a67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle.Dependencies\Boo.Lang.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Compiler, Version=2.0.0.0, Culture=neutral, PublicKeyToken=32c39770e9a21a67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle.Dependencies\Boo.Lang.Compiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Extensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=32c39770e9a21a67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle.Dependencies\Boo.Lang.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Interpreter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=32c39770e9a21a67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle.Dependencies\Boo.Lang.Interpreter.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Parser, Version=2.0.0.0, Culture=neutral, PublicKeyToken=32c39770e9a21a67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle.Dependencies\Boo.Lang.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Useful, Version=2.0.0.0, Culture=neutral, PublicKeyToken=32c39770e9a21a67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle.Dependencies\Boo.Lang.Useful.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Components.Binder">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\net\2.0\Castle\$(Configuration)\Castle.Components.Binder.dll</HintPath>
@@ -61,9 +93,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\net\2.0\Castle\$(Configuration)\Castle.MonoRail.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.MonoRail.Framework.Views.NVelocity">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle\$(Configuration)\Castle.MonoRail.Framework.Views.NVelocity.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.MonoRail.TestSupport">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\net\2.0\Castle\$(Configuration)\Castle.MonoRail.TestSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MonoRail.Views.AspView">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle\$(Configuration)\Castle.MonoRail.Views.AspView.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MonoRail.Views.Brail">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle\$(Configuration)\Castle.MonoRail.Views.Brail.dll</HintPath>
     </Reference>
     <Reference Include="IronRuby">
       <SpecificVersion>False</SpecificVersion>
@@ -81,6 +125,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\net\2.0\IronRuby\$(Configuration)\Microsoft.Scripting.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle.Dependencies\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\tools\nunit\lib\nunit.framework.dll</HintPath>
@@ -89,13 +137,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\tools\nunit\lib\nunit.framework.extensions.dll</HintPath>
     </Reference>
+    <Reference Include="NVelocity">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\net\2.0\Castle\$(Configuration)\NVelocity.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\tools\rhino.mocks\Rhino.Mocks.dll</HintPath>
-    </Reference>
-    <Reference Include="rod.Commons.System">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\net\2.0\rod.Commons\debug\rod.Commons.System.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -155,6 +203,9 @@
     </None>
     <None Include="..\..\app\testsiterubyview\views\simple\trailingsign.erb">
       <Link>Views\simple\trailingsign.erb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\simple\outputexpression.brail">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

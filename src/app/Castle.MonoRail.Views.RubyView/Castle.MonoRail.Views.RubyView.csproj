@@ -47,19 +47,19 @@
     </Reference>
     <Reference Include="IronRuby">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\net\2.0\IronRuby\debug\IronRuby.dll</HintPath>
+      <HintPath>..\..\..\lib\net\2.0\IronRuby\$(Configuration)\IronRuby.dll</HintPath>
     </Reference>
     <Reference Include="IronRuby.Libraries">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\net\2.0\IronRuby\debug\IronRuby.Libraries.dll</HintPath>
+      <HintPath>..\..\..\lib\net\2.0\IronRuby\$(Configuration)\IronRuby.Libraries.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\net\2.0\IronRuby\debug\Microsoft.Scripting.dll</HintPath>
+      <HintPath>..\..\..\lib\net\2.0\IronRuby\$(Configuration)\Microsoft.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\net\2.0\IronRuby\debug\Microsoft.Scripting.Core.dll</HintPath>
+      <HintPath>..\..\..\lib\net\2.0\IronRuby\$(Configuration)\Microsoft.Scripting.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RubyScriptBlock.cs" />
-    <Compile Include="RubyTemplate.cs" />
+    <Compile Include="RubyTemplateParser.cs" />
     <Compile Include="RubyView.cs" />
     <Compile Include="RubyViewEngine.cs" />
   </ItemGroup>

@@ -10,26 +10,45 @@ using Ruby.Runtime;
 
 namespace Castle.MonoRail.Views.RubyView
 {
-	public class RubyView
+	public class RubyView : IDisposable
 	{
-		private readonly string _fileName;
-		private readonly TextWriter _output;
-		private TextReader _input;
-		private RubyTemplate _template;
+		private  string _fileName;
+		private  TextWriter _output;
+		private  ScriptRuntime _scriptRuntime;
+		//private TextReader _input;
+		private RubyTemplateParser _templateParser;
 
 		#region constructors ...
 
-		public RubyView(string fileName, TextWriter output, IViewSource viewSource)
+		public RubyView(string fileName, TextWriter output, IViewSource viewSource, ScriptRuntime scriptRuntime)
 		{
 			ViewSource = viewSource;
 			_fileName = fileName;
 			_output = output;
-			_input = new StreamReader(ViewSource.OpenViewStream());
+			_scriptRuntime = scriptRuntime;
 		}
 
 		~RubyView()
 		{
 			Debug.WriteLine(String.Format("{0} : ~RubyView- {1}", GetType(), "START"));
+		}
+
+		public void Dispose()
+		{
+			if (Parent != null)
+			{
+				Parent.Dispose();
+				Parent = null;
+			}
+			if (TemplateParser != null)
+			{
+				TemplateParser.Dispose();
+				TemplateParser = null;
+			}
+			ViewSource = null;
+			_output = null;
+			_scriptRuntime = null;
+
 		}
 
 		#endregion
@@ -43,28 +62,25 @@ namespace Castle.MonoRail.Views.RubyView
 
 		public RubyView Parent { get; set; }
 
-		public RubyTemplate Template
+		public RubyTemplateParser TemplateParser
 		{
 			get
 			{
-				if (_template == null)
-					_template = new RubyTemplate(_input);
-				return _template;
+				if (_templateParser == null)
+					_templateParser = new RubyTemplateParser(ViewSource);
+				return _templateParser;
 			}
-			set { _template = value; }
+			set { _templateParser = value; }
 		}
 
 		public void Render()
 		{
-			ScriptRuntime runtime = new ScriptRuntime();
-			ScriptEngine rubyengine = IronRuby.GetEngine(runtime);
-			RubyExecutionContext ctx = IronRuby.GetExecutionContext(runtime);
-
-			ScriptScope scope = runtime.CreateScope();
+			var scriptEngine = IronRuby.GetEngine(_scriptRuntime);
+			ScriptScope scope = scriptEngine.CreateScope();
 			scope.SetVariable("output_buffer", _output);
 
-			Template = new RubyTemplate(_input);
-			Template.AddRequire("System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
+			TemplateParser = new RubyTemplateParser(ViewSource);
+			TemplateParser.AddRequire("System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
 
 			StringBuilder script = new StringBuilder();
 			var methodNames = new Stack<string>();
@@ -78,16 +94,23 @@ namespace Castle.MonoRail.Views.RubyView
 			}
 			if (methodsCounter > 1)
 				script.Append(new String('}', methodsCounter - 1));
+			script.AppendLine();
 
 			try
 			{
 				Debug.WriteLine(script.ToString());
-				ScriptSource source = rubyengine.CreateScriptSourceFromString(script.ToString());
+				ScriptSource source = scriptEngine.CreateScriptSourceFromString(script.ToString());
 				source.Execute(scope);
 			}
 			catch (Exception e)
 			{
 				throw new MonoRailException(script.ToString(), e);
+			}
+			finally
+			{
+				// TODO : check if remove variable isnt faster.
+				scope.ClearVariables();
+				scriptEngine.Shutdown();
 			}
 		}
 
@@ -96,7 +119,7 @@ namespace Castle.MonoRail.Views.RubyView
 			var methodName = FileNameToMethodName("render_", FileName);
 			// Skipping genertating the same method
 			if (!methodNames.Contains(methodName))
-				Template.ToScriptMethod(methodName, script);
+				TemplateParser.ToScriptMethod(methodName, script);
 			methodNames.Push(methodName);
 
 			if (Parent != null)

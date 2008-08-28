@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Castle.MonoRail.Framework;
+using Microsoft.Scripting.Hosting;
 using Ruby;
 
 namespace Castle.MonoRail.Views.RubyView
 {
 	public class RubyViewEngine : ViewEngineBase
 	{
+		private readonly ScriptRuntime _scriptRuntime;
 		private const string VIEW_FILE_EXTENSION = ".erb";
 
 		/// <summary>
@@ -39,6 +41,11 @@ namespace Castle.MonoRail.Views.RubyView
 		public override string ViewFileExtension
 		{
 			get { return VIEW_FILE_EXTENSION; }
+		}
+
+		public RubyViewEngine()
+		{
+			_scriptRuntime = IronRuby.CreateRuntime();
 		}
 
 		/// <summary>
@@ -94,11 +101,7 @@ namespace Castle.MonoRail.Views.RubyView
 				throw new MonoRailException(404, "No such view", string.Format("Missing or invalid view: {0}", viewFileName));
 			var layoutNames = controllerContext.LayoutNames;
 
-			var scriptRuntime = IronRuby.CreateRuntime();
-			var scriptScope = scriptRuntime.CreateScope();
-			var scriptEngine = IronRuby.GetEngine(scriptRuntime);
-
-			var view = new RubyView(viewFileName, output, viewSource);
+			var view = new RubyView(viewFileName, output, viewSource, _scriptRuntime);
 			if (layoutNames != null)
 			{
 				var last = view;
@@ -111,7 +114,7 @@ namespace Castle.MonoRail.Views.RubyView
 					layoutSource = ViewSourceLoader.GetViewSource(layoutFileName);
 					if (layoutSource == null)
 						throw new MonoRailException(string.Format("Layout '{0}' cannot be found or loaded.", layoutNames[i].Trim()));
-					last.Parent = new RubyView(layoutFileName, output, layoutSource);
+					last.Parent = new RubyView(layoutFileName, output, layoutSource, _scriptRuntime);
 					last = last.Parent;
 				}
 			}
