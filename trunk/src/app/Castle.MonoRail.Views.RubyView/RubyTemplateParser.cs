@@ -1,22 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using Castle.MonoRail.Framework;
+using Ruby.Compiler.Ast;
 
 namespace Castle.MonoRail.Views.RubyView
 {
-	public class RubyTemplate
+	public class RubyTemplateParser : IDisposable
 	{
-		string template;
+		private IViewSource _sourceLoader;
 		List<string> requires = new List<string>();
 
-		public RubyTemplate(TextReader input)
+		public RubyTemplateParser(IViewSource sourceLoader)
 		{
-			if (input == null)
-				throw new ArgumentNullException("input", "Cannot pass null templateContents to the constructor");
+			if (sourceLoader == null) throw new ArgumentNullException("sourceLoader");
+			_sourceLoader = sourceLoader;
+		}
 
-			template = input.ReadToEnd();
+		~RubyTemplateParser()
+		{
+			Debug.WriteLine(String.Format("{0} : ~RubyTemplateParser- {1}", GetType(), "START"));
 		}
 
 		public void AddRequire(string require)
@@ -43,15 +49,19 @@ namespace Castle.MonoRail.Views.RubyView
 
 		public void ToScriptMethod(string methodName, StringBuilder builder)
 		{
-			string contents = template;
+			string contents;
+
+			using (var reader = new StreamReader(_sourceLoader.OpenViewStream()))
+				contents = reader.ReadToEnd();
+			
 			builder.AppendLine();
 			requires.ForEach(require => builder.AppendLine(string.Format("require '{0}'", require)));
 
 			if (!String.IsNullOrEmpty(methodName))
-			{
 				builder.AppendLine("def " + methodName);
-			}
-			Regex scriptBlocks = new Regex("<%.*?%>", RegexOptions.Compiled | RegexOptions.Singleline);
+
+			// TODO: Change for  precompiled Regex.CompileToAssembly(...) 
+			Regex scriptBlocks = new Regex("<%.*?%>", RegexOptions.Singleline);
 			MatchCollection matches = scriptBlocks.Matches(contents);
 
 			int currentIndex = 0;
@@ -81,6 +91,11 @@ namespace Castle.MonoRail.Views.RubyView
 				builder.AppendLine();
 				builder.AppendLine("end");
 			}
+		}
+
+		public void Dispose()
+		{
+			_sourceLoader = null;
 		}
 	}
 }

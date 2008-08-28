@@ -108,7 +108,7 @@
 		<CallTarget Targets="InternalNUnit" />
 	</Target>
 
-	<Target Name="RunPerformanceTests" DependsOnTargets="BuildPerformanceTests">
+	<Target Name="RunPerformanceTests" DependsOnTargets="_ChangeConfigurationToRelease;BuildPerformanceTests">
 		<CallTarget Targets="InternalNUnit" />
 	</Target>
 
@@ -171,4 +171,10 @@
 		<Message Text="TestProjects:$(NEW_LINE)$(TAB)@(TestProjects->'%(RelativeDir)%(FileName)%(Extension)', '$(NEW_LINE)$(TAB)')" Importance="high"/>
 	</Target>
 
+	<Target Name="_ChangeConfigurationToRelease">
+		<PropertyGroup>
+			<Configuration>Release</Configuration>
+		</PropertyGroup>
+	</Target>
+	
 </Project>
